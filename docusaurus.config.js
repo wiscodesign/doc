@@ -15,6 +15,11 @@ const config = {
   url: "http://www.codeglide.com",
   baseUrl: "/",
 
+  i18n: {
+    defaultLocale: 'zh',
+    locales: ['zh'],
+  },
+
   plugins: [
     "./src/plugins/WebpackPlugin",
     [

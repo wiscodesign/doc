@@ -1,4 +1,4 @@
-import { Button } from "remote:glide_components/Base";
+import { Button } from "@site/src/remotes";
 
 export default function Base() {
   function handleClick() {

@@ -9,6 +9,8 @@ const RemoteModule = require('webpack/lib/container/RemoteModule')
 const RemoteRuntimeModule = require('webpack/lib/container/RemoteRuntimeModule')
 const RemoteToExternalDependency = require('webpack/lib/container/RemoteToExternalDependency')
 
+const remotes = require('../../config')
+
 class RemoteWebpackPlugin {
   constructor(options = {}) {
     this.remoteFileName = options.fileName || 'remote.js'
@@ -42,7 +44,7 @@ class RemoteWebpackPlugin {
         const remoteName = this.getRemoteName(dependency.request)
 
         const externalModule = new ExternalModule(
-          `${remoteName}@[window.__doer_remotes__.${remoteName}]/${this.remoteFileName}`,
+          `${remoteName}@${remotes[remoteName]}/${this.remoteFileName}`,
           this.type,
           dependency.request,
         )

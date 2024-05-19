@@ -1,0 +1,58 @@
+name: Website Build & Deploy
+on:
+  push:
+    branches:    
+      - main
+
+jobs:
+  
+  prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+
+      - name: Checkout Code Resource
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Install & Build
+        run: |
+          npm install
+          npm run build
+
+      - name: Config Environment
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{secrets.SERVER_HOST}}
+          username: ${{secrets.SSH_USERNAME}}
+          password: ${{secrets.SSH_PASSWORD}}
+          script: |
+            rm -rf /var/www/html/${{secrets.PROJECT_NAME}}_tmp
+            mkdir /var/www/html/${{secrets.PROJECT_NAME}}_tmp
+            chmod -R 777 /var/www/html/${{secrets.PROJECT_NAME}}_tmp/
+
+      - name: Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{secrets.SERVER_HOST}}
+          username: ${{secrets.FTP_USERNAME}}
+          password: ${{secrets.FTP_PASSWORD}}
+          local-dir: build/
+          server-dir: /var/www/html/${{secrets.PROJECT_NAME}}_tmp/
+        
+      - name: Apply
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{secrets.SERVER_HOST}}
+          username: ${{secrets.SSH_USERNAME}}
+          password: ${{secrets.SSH_PASSWORD}}
+          script: |
+            rm -rf /var/www/html/${{secrets.PROJECT_NAME}}
+            mv /var/www/html/${{secrets.PROJECT_NAME}}_tmp /var/www/html/${{secrets.PROJECT_NAME}}
+            chown -R root:root /var/www/html/${{secrets.PROJECT_NAME}}
+            chmod -R 755 /var/www/html/${{secrets.PROJECT_NAME}}
+            
