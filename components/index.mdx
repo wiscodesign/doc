@@ -1,0 +1,29 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+
+# Component Guide
+
+import BaseButton from '@site/src/examples/Button/Base'; 
+import BaseButtonSource from '!!raw-loader!@site/src/examples/Button/Base';
+
+## Examples
+
+<Tabs>
+  <TabItem value="demo" label="演示" default>
+    <BaseButton>点我试试</BaseButton>
+  </TabItem>
+  <TabItem value="code" label="源码">
+    <CodeBlock language="jsx">{BaseButtonSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+## Props
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| a | b | c | d |
