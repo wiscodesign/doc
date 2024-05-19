@@ -1,3 +1,3 @@
 module.exports = {
-  glide_components: 'http://localhost:8001',
+  glide_components: 'http://162.14.104.149/static/glide_components',
 }
