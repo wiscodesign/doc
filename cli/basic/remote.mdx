@@ -1,0 +1,92 @@
+---
+sidebar_position: 5
+---
+
+# 资源共享
+
+## 概述
+
+资源共享时 Doer 框架一个核心特色，支持跨应用之间的页面、组件、脚本等资源便捷共享能力，打造基于中心化思想的应用生态。
+基于[Webpack Module Federation](https://webpack.js.org/concepts/module-federation/)机制设计而来，在此基础上做了许多封装改造，使得资源的远程引入更加简单明了，同时也让项目之间更加的独立解藕。
+
+## 应用名称
+
+当项目作为其他项目的远程应用时，都需要一个唯一的应用名称作为资源引入，应用的名称与项目中的```package.json```文件中的name保持一致，请使用合法的程序名称。
+
+## 远程配置
+
+资源共享的前提是需要知道所要共享的资源对应的项目访问路径，因此Doer在项目中统一提供了配置方法```src/config.js```，如果你使用的是typescript，那么对应的文件是```src/config.ts```。
+
+```js
+export function remotes() {
+  return {
+    // 这里需要根据你项目的实际情况配置，一般情况下都是你的项目的静态资源访问地址
+    // 这里的app2就是上文中提到的远程应用名称
+    app2: 'http://localhost:3001',
+  }
+} 
+```
+
+由于remotes设计为一个函数，因此这里支持异步，可以做很多事情，比如版本控制及动态配置等。更多详情请参考[部署](../advance/deploy.mdx)
+
+:::tip
+
+后续的所有远程资源的使用前提都是基于已经通过```remotes```方法配置了远程项目的地址
+
+:::
+
+## 远程页面
+
+Doer项目中的所有[页面](./route.mdx)都是默认共享的，可以被其他项目引用。
+
+访问远程应用的页面通过指定url路由地址即可:
+
+比如现在有app2应用，存在页面```#/order/detail```，想要再app1应用中访问app2的页面，只需要访问如下地址即可:
+
+```
+host/#/app2/order/detail
+```
+
+如果你任然对路由组成规则存在疑惑，请回头再度阅读[路由](./route.mdx#路由组成)
+
+## 远程资源
+
+远程资源包括组件、脚本、样式等可以被项目导入使用的资源。
+
+远程资源在使用之前，需要先由资源提供方通过配置文件中的```exposes```配置导出，具体的配置方法查看[exposes](../config/complier.mdx#exposes)
+
+我们来看一个例子：
+
+我们有如下app2应用
+
+```
+app2
+└── src
+    └── components
+        └── button
+            └── Button.jsx
+```
+
+并且配置了导出
+
+```js
+export default {
+  // 导出远程应用资源Button
+  exposes: {
+    './Button': './src/components/button/Button.jsx',
+  },
+}
+```
+
+那么我们如何在app1应用中访问app2应用的```Button```组件呢？
+
+```jsx
+// 1. 导入远程应用资源
+// 这里的app2就是上文中提到的远程应用名称
+import Button from 'remote:app2/Button'
+
+export default function () {
+  // 2. 正常使用远程应用资源
+  return <Button>我是App2的按钮</Button>
+}
+```

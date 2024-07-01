@@ -1,0 +1,35 @@
+---
+sidebar_position: 6
+---
+
+# 样式
+
+Doer脚手架内置了```css```、[css module](https://github.com/css-modules/css-modules)样式支持。
+
+## css
+
+在项目源码目录```src```下以.css结尾的文件。
+
+```jsx
+import './Button.css'
+
+export default function Button() {
+  return <div className="button"></div>
+}
+```
+
+## css module
+
+在项目源码目录```src```下以.module.css结尾的文件。
+
+```jsx
+import styles from './Button.module.css'
+
+export default function Button() {
+  return <div className={styles.button}></div>
+}
+```
+
+## 其他
+
+对于习惯于使用样式预处理器的用户，Doer通过插件生态提供了对[less](../plugin/less.mdx)的支持

@@ -1,0 +1,130 @@
+---
+sidebar_position: 4
+---
+
+# 路由
+
+## 概述
+
+Doer的路由是基于约定式路由，本文档将着重介绍路由的配置方式，路由的跳转及路由参数的传递。
+
+## 路由配置
+
+路由的配置基于约定式路由，约定在源码目录```src```下以```.page.jsx```结尾命名的文件定义为页面组件，Doer会自动将其注册为路由方法。
+
+路由的路径由其目录结构决定，这样可能有点难以理解，我们通过以下几个例子来讲解:
+
+```
+└── src 
+    └── pages
+        ├── index
+        |   └── Index.page.jsx            路由地址: /
+        └── editor
+            ├── Editor.page.jsx           路由地址: /editor
+            └── detail
+                └── Detail.page.jsx       路由地址: /editor/detail
+```
+
+从上面的例子我们可以看到，路由的地址由页面文件的目录决定，且会忽略前两级目录（在这个例子中```/src/pages```不会计入到路由地址中），从第三级路径开始计算
+这样的设计主要是希望用户能够将路由页面统一在一个目录下面，而不是散落在src源码目录下，同时又不会约定死路由一定要放置于```pages```目录下面，你可以设计自己的页面统一目录。
+
+## 路由方法
+
+Doer脚手架路由整体基于[react-router-dom](https://reactrouter.com/en/main)设计，因此他的所有API在框架中都是可用的状态
+
+你可以通过框架统一导出来使用
+
+```js
+import { useSearchParams } from 'doer'
+```
+
+又或是可以直接从[react-router-dom](https://reactrouter.com/en/main)导出API使用，例如：
+
+```js
+import { useSearchParams } from 'react-router-dom'
+```
+
+除了[react-router-dom](https://reactrouter.com/en/main)提供的相关API外，Doer框架还提供了[history](https://github.com/remix-run/history)相关API
+
+使用方法如下：
+
+```js
+import { history } from 'doer'
+
+history.push('/editor')
+```
+
+以上只是简单介绍路由相关API从哪里获取使用，更多的详细API地址请移步[react-router-dom](https://reactrouter.com/en/main)和[history](./api.mdx) 
+
+## 路由参数
+
+路由参数携带我们推荐以传统的?形式参数传递，而不推荐使用[react-router-dom](https://reactrouter.com/en/main)提供的路由参数，这样决定的原因再于基于约定式路由如果实现了路由参数会导致整个目录文件结构变得很奇怪
+不具备很好的美观性和可读性，因此我们推荐使用传统的?形式参数传递
+
+```js
+import { history } from 'doer'
+
+history.push('/editor/detail?id=1')
+```
+
+## 路由组成
+
+如果你已经阅读了[布局](./layout.mdx)和[资源共享](./remote.mdx#远程页面)章节，或者已经跟着[快速开始](../guide.mdx)教程过了一遍，你会发现，影响我们路由地址的不仅仅是页面本身的目录结构。
+
+如果你还没有阅读以上章节，我们建议你先阅读以上相关章节，否则可能你会无法理解什么是布局？什么是应用资源共享？以及对于路由地址的影响。
+
+首先我们来看一个完整的路由组成：
+
+```
+host#/[布局]/[应用名]/[路由]/[路由]/[路由]
+```
+
+其中```布局```和```应用名```并不是必须的，他们是可选的，
+
+假设我们已经有了如下几个材料:
+```
+1. 主应用中的布局名为vertical
+2. 主应用(app)中的页面，对应的地址/editor/detail
+app
+└── src 
+    ├── layouts
+    |   └── vertical            
+    |       └── Vertical.layout.jsx      布局组件: /vertical
+    └── pages
+        └── editor
+            └── detail
+                └── Detail.page.jsx       路由地址: /editor/detail
+3. 子应用(app2)中的页面，对应的地址/order/detail
+app2
+└── src 
+    └── pages
+        └── order
+            └── detail
+                └── Detail.page.jsx       路由地址: /order/detail
+```
+
+那么当我们想访问主应用(app)的```/editor/detail```页面时，对应的路由地址:
+
+```
+host#/editor/detail
+```
+
+从这个例子中我们可以得出，主应用的应用名称是不需要写的
+
+当我们想通过vertical布局访问主应用(app)的```/editor/detail```页面时，对应的路由地址:
+
+```
+host#/vertical/editor/detail
+```
+
+如果我们想再主应用中访问子应用的```/order/detail```页面时，对应的路由地址:
+
+```
+host#/app2/order/detail
+```
+
+或者是以vertical布局访问子应用的```/order/detail```页面时，对应的路由地址:
+
+```
+host#/vertical/app2/order/detail
+```

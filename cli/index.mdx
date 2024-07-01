@@ -1,0 +1,67 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 简介
+
+## 简介
+
+```Doer```是由```Copower```工作室维护的集布局、路由、资源共享、多应用整合的开箱即用的微前端脚手架。
+
+## 特征
+
+* 基于约定式路由，简化路由，一个路由对应一个页面
+* 运行时布局切换模式，支持灵活的动态切换布局，应对更多的展现场景
+* 免注册式跨应用资源导入，支持组件、脚本、应用共享
+* 脚手架插件体系建设
+
+## 框架支持
+
+* React
+
+## 安装及使用
+
+Doer脚手架项目基于Nodejs，请确保Node (>=18)版本，可以选择用[nvm](https://github.com/nvm-sh/nvm)进行node版本管理及切换，同时推荐使用[nrm](https://github.com/Pana/nrm)进行依赖源管理。可以通过全局安装脚手架或者通过[npx](https://docs.npmjs.com/cli/v10/commands/npx)直接使用
+
+### 全局安装
+
+#### 安装
+
+<Tabs>
+  <TabItem value="npm" label="npm">
+  ```bash
+  $ npm install -g @doerjs/cli
+  ```
+  </TabItem>
+  <TabItem value="yarn" label="yarn">
+  ```bash
+  $ yarn global add @doerjs/cli
+  ```
+  </TabItem>                                                                                                                                                                                                                                                                                                                           
+  <TabItem value="pnpm" label="pnpm">
+  ```bash
+  $ pnpm install -g @doerjs/cli
+  ```
+  </TabItem>
+</Tabs>
+
+#### 创建项目
+
+```bash
+$ doer create
+```
+
+### 使用npx创建项目
+
+可以通过[npx](https://docs.npmjs.com/cli/v10/commands/npx)直接初始化项目而不用全局安装
+
+```bash
+$ npx @doerjs/cli create
+```
+
+### 项目启动
+
+通过上面的操作我们已经获得了一个可以立即用于开发的项目，如果对项目结构有疑问的可以查看[目录结构](./basic/structure.mdx)，如果不着急也可以一步一步跟着教程走，相信最后你一定会理解整个项目。

@@ -1,0 +1,88 @@
+---
+sidebar_position: 1
+---
+
+# 目录结构
+
+## Javascript目录结构
+
+```
+├── .husky                               [husky](https://github.com/typicode/husky)工具配置目录
+├── dist                                 项目构建的目标目录
+├── public                               网站静态资源目录
+|
+├── src                                  源代码目录
+|   ├── .doer                            开发过程中的临时编译目录，自动生成的用于编译中间文件，比如路由注册，远程页面加载逻辑等，不需要手动修改
+|   ├── .doer.prod                       打包生产过程中的临时编译目录，自动生成的用于编译中间文件，比如路由注册，远程页面加载逻辑等，不需要手动修改
+|   ├── layouts                          布局文件目录
+|   |   └── vertical            
+|   |       ├── Vertical.layout.jsx      垂直布局
+|   |       └── Vertical.css             垂直布局样式
+|   ├── pages                            页面文件目录
+|   |   └── index                        index 页面目录
+|   |       ├── Index.page.jsx           index 页面逻辑
+|   |       └── index.css                index 页面样式
+|   |
+|   ├── app.js                           应用全局入口脚本，对应的生命周期勾子在这里
+|   ├── app.css                          应用全局样式文件
+|   └── config.js                         应用远程地址配置文件
+|
+├── .browserslistrc                      [browserslist](https://github.com/browserslist/browserslist)浏览器兼容配置
+├── .doerrc.js                           应用配置文件
+├── .env                                 环境变量配置文件
+├── .env.local                           本地临时环境变量配置文件
+├── .env.dev                             开发环境变量配置文件
+├── .env.dev.local                       本地临时开发环境变量配置文件
+├── .env.prod                            生产环境变量配置文件
+├── .env.prod.local                      本地临时生产环境变量配置文件
+├── .eslintignore                        [ESLint](https://eslint.org/docs/v8.x/)忽略规则配置
+├── .eslintrc.cjs                        [ESLint](https://eslint.org/docs/v8.x/)代码检查规则配置文件
+├── .prettierignore                      [Prettier](https://prettier.io/)忽略规则配置
+├── .prettierrc.cjs                      [Prettier](https://prettier.io/)代码格式化规则配置文件
+├── .prettierrc.cjs                      [Prettier](https://prettier.io/)代码格式化规则配置文件
+|
+└── package.json
+```
+
+## Typescript目录结构
+
+```
+├── .husky                               [husky](https://github.com/typicode/husky)工具配置目录
+├── dist                                 项目构建的目标目录
+├── public                               网站静态资源目录
+|
+├── src                                  源代码目录
+|   ├── .doer                            开发过程中的临时编译目录，自动生成的用于编译中间文件，比如路由注册，远程页面加载逻辑等，不需要手动修改
+|   ├── .doer.prod                       打包生产过程中的临时编译目录，自动生成的用于编译中间文件，比如路由注册，远程页面加载逻辑等，不需要手动修改
+|   ├── layouts                          布局文件目录
+|   |   └── vertical            
+|   |       ├── Vertical.layout.tsx      垂直布局
+|   |       └── Vertical.css             垂直布局样式
+|   ├── pages                            页面文件目录
+|   |   └── index                        index 页面目录
+|   |       ├── Index.page.tsx           index 页面逻辑
+|   |       └── index.css                index 页面样式
+|   |
+|   ├── app.ts                           应用全局入口脚本，对应的生命周期勾子在这里
+|   ├── app.css                          应用全局样式文件
+|   └── config.ts                         应用远程地址配置文件
+|
+├── typings                              类型定义文件目录  
+|
+├── .browserslistrc                      [browserslist](https://github.com/browserslist/browserslist)浏览器兼容配置
+├── .doerrc.js                           应用配置文件
+├── .env                                 环境变量配置文件
+├── .env.local                           本地临时环境变量配置文件
+├── .env.dev                             开发环境变量配置文件
+├── .env.dev.local                       本地临时开发环境变量配置文件
+├── .env.prod                            生产环境变量配置文件
+├── .env.prod.local                      本地临时生产环境变量配置文件
+├── .eslintignore                        [ESLint](https://eslint.org/docs/v8.x/)忽略规则配置
+├── .eslintrc.cjs                        [ESLint](https://eslint.org/docs/v8.x/)代码检查规则配置文件
+├── .prettierignore                      [Prettier](https://prettier.io/)忽略规则配置
+├── .prettierrc.cjs                      [Prettier](https://prettier.io/)代码格式化规则配置文件
+├── .prettierrc.cjs                      [Prettier](https://prettier.io/)代码格式化规则配置文件
+├── tsconfig.json                         [Typescript](https://www.typescriptlang.org/)配置文件
+|
+└── package.json
+```
